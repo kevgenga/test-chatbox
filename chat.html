@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat Firebase</title>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="chat.css" />
+
+  <!-- Script principal -->
+  <script src="chat.js" defer></script>
+</head>
+
+<body class="light">
+
+  <!-- Logo et Titre -->
+  <div class="logo-title">
+    <div id="image-logo">
+      <a href="edit-profil.html">
+        <img src="assets/logo%20sans%20fond.png" alt="Logo">
+      </a>
+    </div>
+    <h1 id="titre-du-chat">CHATBOX</h1>
+  </div>
+
+  <!-- Conteneur principal horizontal -->
+  <div class="chat-layout">
+    
+    <!-- Boîte de commandes à gauche -->
+    <aside class="commandes-container">
+      <h3>Commandes</h3>
+      <ul>
+        <li><strong>/shrug</strong> → Affiche ¯\_(ツ)_/¯</li>
+        <li><strong>/roll</strong> → Lancer un dé à 6 faces</li>
+        <li><strong>/flip</strong> → Pile ou face</li>
+        <li><strong>/dice [n]</strong> → Lancer un dé avec n faces</li>
+        <li><strong>/help</strong> → Affiche cette liste</li>
+      </ul>
+    </aside>
+
+    <!-- Conteneur du chat au centre -->
+    <div class="chat-container">
+      <div class="messages-container" id="messages"></div>
+
+      <!-- Formulaire d'envoi de message -->
+      <form id="messageForm">
+        <input type="text" id="messageInput" placeholder="Tapez votre message..." autocomplete="off" />
+        <button type="submit" id="bouton-envoyer">Envoyer</button>
+      </form>
+
+      <button id="bouton-profil" onclick="window.location.href='edit-profil.html'">Éditer mon profil</button>
+    </div>
+
+    <!-- Membres en ligne à droite -->
+    <div class="online-users-container" id="online-users-container">
+      <h3>Membres en ligne</h3>
+      <ul id="online-users-list">
+        <!-- Utilisateurs en ligne (injectés dynamiquement) -->
+      </ul>
+       <div class="input-container">
+        <button id="logout-button">Déconnexion</button> <!-- ✅ Bouton ajouté -->
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

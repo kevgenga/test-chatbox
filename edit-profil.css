@@ -1,0 +1,266 @@
+/* ========== RESET ========== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 2rem;
+  }
+  
+  /* ========== MODE CLAIR ========== */
+  body.light {
+    background-color: #f4f6f8;
+    color: #333;
+  }
+  
+  body.light #profil-container {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  body.light input,
+  body.light button {
+    background-color: #ffffff;
+    color: #333;
+  }
+  
+  body.light input {
+    border: 1px solid #ccc;
+  }
+  
+  /* ========== MODE SOMBRE ========== */
+  body.dark {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+  
+  body.dark #profil-container {
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  body.dark input,
+  body.dark button {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+  }
+  
+  body.dark input {
+    border: 1px solid #444;
+  }
+  
+  /* ========== CONTAINER PRINCIPAL ========== */
+  #profil-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 12px;
+  }
+  
+  /* ========== TITRE ========== */
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+  
+  /* ========== AVATAR ========== */
+  #user-avatar {
+    display: block;
+    margin: 0 auto 1rem;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+  }
+  
+  /* ========== INFOS UTILISATEUR ========== */
+  p {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  strong {
+    color: inherit;
+  }
+  
+  /* ========== BOUTONS ========== */
+  /* bouton principal */
+  button {
+    background-color: #0077ff;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    margin: 0.4rem 0.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  /* bouton principal de survol */
+  button:hover {
+    background-color: #005edb;
+  }
+
+  /* bouton de déconnexion */
+  #logout-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #f44336; /* Couleur rouge pour le bouton de déconnexion */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  /* bouton de déconnexion au survol */
+  #logout-button:hover {
+    background-color: #d32f2f; /* Couleur rouge plus foncé au survol */
+  }
+  /* bouton de déconnexion au focus */
+  #logout-button:focus {
+    outline: none; /* Enlève le contour au focus */
+  }
+
+  /* bouton de container */
+  #container-bouton-e-g {
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    display: flex;
+  }
+
+  body.dark #btn-enregistrer, body.dark #cancel-edit {
+    border: 1px solid #444;
+  }
+  /* bouton enregistrer + survol */
+  #btn-enregistrer:hover, #cancel-edit:hover {
+    background-color: #242424;
+  }
+
+  /* bouton enregistrer + bouton annuler survol EN MODE THEME CLAIR*/
+  body.light #btn-enregistrer, body.light #cancel-edit {
+    background-color: #0077ff;
+    color: #fff;
+  }
+  /* bouton enregistrer survol + bouton annuler survol EN MODE THEME CLAIR*/
+  body.light #btn-enregistrer:hover, body.light #cancel-edit:hover {
+    background-color: #005edb;
+  }
+
+  /* ========== BOUTON CHAT ========== */
+
+  /* bouton retourner au chat */
+  #go-to-chat {
+    margin-left: 5px;
+    padding: 10px 20px;
+    background-color: #388e3c; /* Couleur rouge pour le bouton de déconnexion */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  /* bouton retourner au chat SURVOL*/
+  #go-to-chat:hover {
+    background-color: #2e7d32; /* Couleur rouge plus foncé au survol */
+  }
+
+  /* bouton retourner au chat FOCUS*/
+  #go-to-chat:focus {
+    outline: none; /* Enlève le contour au focus */
+  }
+
+  /* bouton retourner au chat EN MODE THEME CLAIR*/
+  body.light #go-to-chat {
+    background-color: #4caf50;
+    color: white;
+  }
+  /* bouton retourner au chat SURVOL EN MODE THEME CLAIR*/
+  body.light #go-to-chat:hover {
+    background-color: #45a049;
+  }
+
+  /* ========== BOUTON EDITER MON PSEUDO ========== */
+  /* bouton de "editer son profil" */
+  #edit-profile-button {
+    background-color: #0077ff;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+    margin-right: 15px;
+    margin-left: -2px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  /* bouton de "editer son profil" SURVOL */
+  #edit-profile-button:hover {
+    background-color: #005edb;
+  }
+
+  /* ========== FORMULAIRE D'ÉDITION ========== */
+  /* formulaire d'édition de profil GLOBAL*/
+  #edit-profile-form {
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    display: flex;
+    max-width: 500px;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ccc;
+  }
+  
+  /* "modifier mon pseudo" */
+  #edit-profile-form h2 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+  
+  /* champ de formulaire GLOBAL "pseudo : etc..." */
+  form div {
+    margin-bottom: 1rem;
+  }
+  
+  /* titre du champ de formulaire (texte : pseudo : ..) */
+  label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="file"] {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 6px;
+  }
+  
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 600px) { /* pour les écrans de 600px ou moins EN LARGEUR */
+
+    h1 {
+      font-size: 1.5rem;
+      display: flex;
+    }
+
+    #profil-container {
+      padding: 1.5rem;
+    }
+  
+    button {
+      margin: 0.3rem 0;
+    }
+  }
