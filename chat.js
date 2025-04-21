@@ -5,7 +5,7 @@ const firebaseConfig = {
   projectId: "test-fb54d",
   storageBucket: "test-fb54d.appspot.com",
   messagingSenderId: "1011475501358",
-  appId: "1:1011475501358:web:xxxxxxxxxxxxxx" // Remplace les x par le vrai appId  
+  appId: "1:1011475501358:web:xxxxxxxxxxxxxx" // Remplace les x par le vrai appId
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -15,67 +15,59 @@ const db = firebase.firestore();
 let userId = null;
 let userName = 'Utilisateur';
 
-// Fonction pour bloquer/débloquer le formulaire de message
 function toggleMessageForm(disabled) {
   const messageInput = document.getElementById('messageInput');
   const sendButton = document.getElementById('bouton-envoyer');
-  
+
   messageInput.disabled = disabled;
   sendButton.disabled = disabled;
-  
-  if (disabled) {
-    messageInput.placeholder = "Veuillez définir un pseudo pour envoyer des messages";
-  } else {
-    messageInput.placeholder = "Tapez votre message...";
-  }
+
+  messageInput.placeholder = disabled
+    ? "Veuillez définir un pseudo pour envoyer des messages"
+    : "Tapez votre message...";
 }
 
-// Initialisation : bloquer le formulaire par défaut
 toggleMessageForm(true);
 
-// Vérification de l'état de l'utilisateur
 auth.onAuthStateChanged((user) => {
   if (user) {
     userId = user.uid;
     userName = user.displayName || 'Utilisateur';
-    
+
     if (!user.displayName) {
       setUserName();
     } else {
       initializeChat();
       updateOnlineStatus();
       updateOnlineUsersRealtime();
-      toggleMessageForm(false); // Débloquer le formulaire si pseudo existe
+      toggleMessageForm(false);
     }
   } else {
     window.location.href = "index.html";
   }
 });
 
-// Fonction pour demander à l'utilisateur de définir son pseudo
 function setUserName() {
   const newUserName = prompt("Veuillez définir votre pseudo :");
   if (newUserName) {
     userName = newUserName;
     const user = auth.currentUser;
-    user.updateProfile({
-      displayName: userName
-    }).then(() => {
-      initializeChat();
-      updateOnlineStatus();
-      updateOnlineUsersRealtime();
-      toggleMessageForm(false); // Débloquer le formulaire après avoir défini le pseudo
-    }).catch((error) => {
-      console.error("Erreur lors de la mise à jour du pseudo : ", error);
-      toggleMessageForm(true); // Garder le formulaire bloqué en cas d'erreur
-    });
+    user.updateProfile({ displayName: userName })
+      .then(() => {
+        initializeChat();
+        updateOnlineStatus();
+        updateOnlineUsersRealtime();
+        toggleMessageForm(false);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la mise à jour du pseudo : ", error);
+        toggleMessageForm(true);
+      });
   } else {
-    // Si l'utilisateur annule la saisie du pseudo
     toggleMessageForm(true);
   }
 }
 
-// Fonction pour initialiser le chat
 function initializeChat() {
   const messagesList = document.getElementById('messages');
   const messageInput = document.getElementById('messageInput');
@@ -90,7 +82,7 @@ function initializeChat() {
       messagesList.innerHTML = '';
       snapshot.forEach(doc => {
         const data = doc.data();
-        const li = document.createElement('li'); 
+        const li = document.createElement('li');
         li.classList.add(data.from === userId ? 'sent' : 'received');
 
         const container = document.createElement('div');
@@ -110,8 +102,6 @@ function initializeChat() {
         userLink.textContent = "Profil";
         userLink.classList.add("user-link");
 
-        const isAdmin = adminIds.includes(data.from);
-
         if (data.from === userId) {
           const vousSpan = document.createElement("span");
           vousSpan.textContent = "(Vous) ";
@@ -120,29 +110,12 @@ function initializeChat() {
           userNameElement.appendChild(document.createTextNode(userName));
         } else {
           userNameElement.textContent = (data.pseudo || "Utilisateur") + " ";
-          if (isAdmin) {
-            const adminBadge = document.createElement("span");
-            adminBadge.textContent = "👑";
-            adminBadge.classList.add("admin-badge");
-            userNameElement.appendChild(adminBadge);
-          }
           userNameElement.appendChild(userLink);
         }
 
         const messageText = document.createElement('div');
         messageText.className = "message-text message-content";
         messageText.innerHTML = linkify(data.content);
-
-        function linkify(text) {
-          const urlPattern = /(\b(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\S*)?)/gi;
-          return text.replace(urlPattern, function (url) {
-            let hyperlink = url;
-            if (!hyperlink.startsWith("http")) {
-              hyperlink = "https://" + hyperlink;
-            }
-            return `<a href="${hyperlink}" target="_blank" rel="noopener noreferrer">${url}</a>`;
-          });
-        }
 
         const timestamp = document.createElement('div');
         timestamp.className = "message-timestamp";
@@ -162,9 +135,19 @@ function initializeChat() {
 
       messagesList.scrollTop = messagesList.scrollHeight;
     });
+
+  function linkify(text) {
+    const urlPattern = /(\b(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\S*)?)/gi;
+    return text.replace(urlPattern, function (url) {
+      let hyperlink = url;
+      if (!hyperlink.startsWith("http")) {
+        hyperlink = "https://" + hyperlink;
+      }
+      return `<a href="${hyperlink}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+    });
+  }
 }
 
-// Envoi du message dans Firestore
 function sendMessage(e) {
   if (e) e.preventDefault();
 
@@ -179,7 +162,6 @@ function sendMessage(e) {
   input.value = '';
 }
 
-// Fonction pour envoyer un message normal dans la base de données
 function sendChatMessage(content) {
   const userEmail = auth.currentUser.email;
 
@@ -196,7 +178,6 @@ function sendChatMessage(content) {
 
 document.getElementById('messageForm').addEventListener('submit', sendMessage);
 
-// Fonction pour mettre à jour le statut en ligne de l'utilisateur
 function updateOnlineStatus() {
   const user = auth.currentUser;
   if (!user) return;
@@ -205,7 +186,7 @@ function updateOnlineStatus() {
 
   onlineRef.set({
     uid: user.uid,
-    pseudo: user.displayName || userLink.textContent,
+    pseudo: user.displayName || "Utilisateur",
     lastSeen: firebase.firestore.FieldValue.serverTimestamp()
   });
 
@@ -214,7 +195,6 @@ function updateOnlineStatus() {
   });
 }
 
-// Fonction pour afficher les utilisateurs en ligne
 function updateOnlineUsersRealtime() {
   const onlineUsersList = document.getElementById('online-users-list');
 
@@ -239,7 +219,6 @@ function updateOnlineUsersRealtime() {
     });
 }
 
-// Nettoyage des utilisateurs inactifs
 function cleanupInactiveUsers() {
   const now = firebase.firestore.Timestamp.now();
   const maxInactiveDuration = 5 * 60 * 1000;
@@ -251,7 +230,7 @@ function cleanupInactiveUsers() {
         const user = doc.data();
         const lastSeen = user.lastSeen.toMillis();
 
-        if (now - lastSeen > maxInactiveDuration) {
+        if (now.toMillis() - lastSeen > maxInactiveDuration) {
           db.collection("onlineUsers").doc(user.uid).delete();
         }
       });
@@ -260,7 +239,6 @@ function cleanupInactiveUsers() {
 
 setInterval(cleanupInactiveUsers, 60 * 1000);
 
-// Déconnexion
 document.getElementById('logout-button').addEventListener('click', () => {
   auth.signOut().then(() => {
     window.location.href = "index.html";
@@ -269,7 +247,6 @@ document.getElementById('logout-button').addEventListener('click', () => {
   });
 });
 
-// Mode sombre / clair
 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 const savedTheme = localStorage.getItem('theme');
 const bodyClass = document.body.classList;
@@ -290,7 +267,6 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
   }
 });
 
-// Envoi avec touche "Entrée"
 document.getElementById('messageInput').addEventListener('keydown', function (event) {
   if (event.key === 'Enter' && !event.shiftKey) {
     event.preventDefault();
@@ -298,33 +274,23 @@ document.getElementById('messageInput').addEventListener('keydown', function (ev
   }
 });
 
-// Gestion des commandes
 function traiterCommandes(message) {
   const trimmed = message.trim();
   const lower = trimmed.toLowerCase();
-  
+
   if (lower === "/shrug") return "¯\\_(ツ)_/¯";
   if (lower === "/roll") return `🎲 Tu as lancé un dé 6 faces... Résultat : ${Math.floor(Math.random() * 6) + 1}`;
   if (lower === "/flip") return `🪙 Tu as lancé une pièce... Résultat : ${Math.random() < 0.5 ? "Pile" : "Face"}`;
-  if (lower === "/help") return "📜 Commandes disponibles : /shrug, /roll, /flip, /dice (n)"; 
-  
+  if (lower === "/help") return "📜 Commandes disponibles : /shrug, /roll, /flip, /dice (n)";
+
   if (lower.startsWith("/dice ")) {
     const nombreFaces = parseInt(trimmed.split(" ")[1]);
     if (!isNaN(nombreFaces) && nombreFaces > 1) {
       return `🎲 Tu as lancé un dé ${nombreFaces} faces... Résultat : ${Math.floor(Math.random() * nombreFaces) + 1}`;
     } else {
-      return "⚠️ Utilisation : /dice + le nombre de faces --> /dice 20"; 
+      return "⚠️ Utilisation : /dice + le nombre de faces --> /dice 20";
     }
   }
 
   return message;
 }
-
-document.getElementById('logout-button').addEventListener('click', () => {
-  firebase.auth().signOut().then(() => {
-    window.location.href = "index.html";
-  }).catch(error => {
-    console.error("Erreur lors de la déconnexion :", error);
-    alert("Erreur lors de la déconnexion.");
-  });
-});
