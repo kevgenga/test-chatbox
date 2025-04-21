@@ -11,7 +11,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
-const adminIds = ['pc8pQY0NGUO7ccUQb96EWtRT3Bq1', '4QketXCQoxa0CksneAgMlPfdMGN2'];
 
 let userId = null;
 let userName = 'Utilisateur';
@@ -121,12 +120,6 @@ function initializeChat() {
           userNameElement.appendChild(document.createTextNode(userName));
         } else {
           userNameElement.textContent = (data.pseudo || "Utilisateur") + " ";
-          if (isAdmin) {
-            const adminBadge = document.createElement("span");
-            adminBadge.textContent = "👑";
-            adminBadge.classList.add("admin-badge");
-            userNameElement.appendChild(adminBadge);
-          }
           userNameElement.appendChild(userLink);
         }
 
