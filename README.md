@@ -2,7 +2,7 @@
 
 Une application de messagerie en ligne développée avec **HTML**, **CSS** et **Firebase** pour l'authentification et le stockage des messages. Cette application permet aux utilisateurs de se connecter, de discuter en temps réel dans un chat général, tout en offrant un mode sombre et clair pour personnaliser l'interface.
 
-🔗 [Accéder au site](https://kevgenga.github.io/test-chat-firebase/)
+🔗 [Accéder au site](https://kevgenga.github.io/test-chatbox/)
 
 ## 🚀 **Technologies utilisées**
 
