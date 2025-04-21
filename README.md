@@ -22,9 +22,10 @@ Cette application permet de :
 ✅ **Passer d'un mode sombre à clair** pour personnaliser l'apparence de l'interface.  
 ✅ **Accéder au chat** après une connexion, avec un bouton de déconnexion pour quitter la session.  
 ✅ **Envoyer des messages** en utilisant la touche "Entrée" du clavier.  
-✅ **Optimisation pour mobile et desktop**, avec un design responsive adapté aux écrans de smartphone.  
 ✅ **Changer son pseudo** après l’inscription, avec enregistrement dans Firestore.  
 ✅ **Voir le profil des utilisateurs** (pseudo, avatar, email) en cliquant sur leur nom ou avatar dans le chat.
+✅ **Commande /help etc... dans le chat.
+
 
 ## 📝 **Fonctionnalités**
 
@@ -50,6 +51,3 @@ Cette application permet de :
 ✅ **Basculer entre un mode sombre et un mode clair** pour l'interface utilisateur.  
 ✅ **Préférences sauvegardées** : Le mode choisi reste actif même après une déconnexion et reconnexion.
 
-### 📱 Responsive
-✅ **Optimisé pour mobile** : L'application s'adapte aux écrans des smartphones et des tablettes.  
-✅ **Interface intuitive et fluide**, avec des boutons et champs de texte adaptés à la navigation mobile.
