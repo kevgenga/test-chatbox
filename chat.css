@@ -405,6 +405,7 @@ button:hover {
 .commandes-container li {
   margin: 8px 0;
   font-size: 0.9em;
+  color: black;
 }
 
 .commandes-container li strong {
